@@ -33,6 +33,7 @@ class MathGameBot(commands.Bot):
         self.run(self.token)
 
 
-TOKEN = os.environ.get("MATH_BOT_TOKEN")
-bot = MathGameBot(TOKEN)
-bot.run_bot()
+if __name__ == "__main__":
+    TOKEN = os.environ.get("MATH_BOT_TOKEN")
+    bot = MathGameBot(TOKEN)
+    bot.run_bot()
