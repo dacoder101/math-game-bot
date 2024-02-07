@@ -1,9 +1,9 @@
 # Math Game Bot
 A discord bot for a simple math game, written with Discord.py
 
-# Contributing
+## Contributing
 
-Install all dependencies using `poetry install`. You will need to configure your IDE with the virtual environment, or it may not detect the installed dependencies.
+Install all dependencies using `poetry install` after cloning the repository. You will need to configure your IDE with the virtual environment it generates, or it may not detect the installed dependencies.
 
 The `TOKEN` environment variable must be set with your bot's token, which can be created and found on the [Discord Developer Portal](https://discord.com/developers/).
 
