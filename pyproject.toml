@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "math-game-bot"
 version = "0.1.0"
-description = ""
+description = "A discord bot for a simple math game, written with Discord.py"
 authors = ["dacoder101 <bobbye23899@gmail.com>"]
 readme = "README.md"
 
