@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "math-game-bot"
+version = "0.1.0"
+description = ""
+authors = ["dacoder101 <bobbye23899@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+discord-py = "^2.3.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
