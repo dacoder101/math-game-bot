@@ -10,7 +10,7 @@ Per [PROJECTS.md](https://github.com/dacoder101/dacoder101/blob/main/PROJECTS.md
 
 Install all dependencies using `poetry install` after cloning the repository. You will need to configure your IDE with the virtual environment it generates, or it may not detect the installed dependencies, or execute the script with `poetry run` directly.
 
-The `MATH_BOT_TOKEN` environment variable must be set with your bot's token, which can be created and found on the [Discord Developer Portal](https://discord.com/developers/).
+If you plan to use `run.py`, the `MATH_BOT_TOKEN` environment variable must be set with your bot's token, which can be created and found on the [Discord Developer Portal](https://discord.com/developers/).
 
 Thank you for contributing!
 
@@ -24,4 +24,6 @@ Add [this application](https://discord.com/api/oauth2/authorize?client_id=120465
 
 ### Method 2
 
-Clone the repository, and follow the instructions for contributing. Execute `run.py`, and the bot should go online.
+Clone the repository, and follow the instructions for contributing. After exporting the token and executing `run.py`, the bot should go online.
+
+Exporting an environment variable only lasts in that terminal session, meaning the token could be lost. You may want to consider configuring the run script to use `dotenv`, and create a `.env` file to store your token.
