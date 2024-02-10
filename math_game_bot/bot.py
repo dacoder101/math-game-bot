@@ -26,5 +26,5 @@ class MathGameBot(commands.Bot):
 
     def run_bot(self):
         """Start the bot."""
-        
+
         self.run(self.token)
