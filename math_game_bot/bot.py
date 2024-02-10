@@ -15,9 +15,14 @@ class MathGameBot(commands.Bot):
 
         MathBotCommands(self)
 
-    async def on_ready(self):
-        """Prints a message when the bot is ready."""
-        print(f"Logged in as {self.user.name}")
+        @self.event
+        async def on_ready():
+            """Prints a message when the bot is ready."""
+
+            await self.change_presence(activity=discord.Game(name="mathing"))
+
+            print(f"Logged in as {self.user.name}")
+            await self.tree.sync()
 
     def run_bot(self):
         """Start the bot."""
