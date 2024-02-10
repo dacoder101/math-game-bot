@@ -16,7 +16,7 @@ Thank you for contributing!
 
 Add [this application](https://discord.com/api/oauth2/authorize?client_id=1204659279936880690&permissions=8&scope=bot) to your Discord server. You may not be able to add it to certain servers depending on the permissions you have.
 
-**The bot will only execute commands when the bot is currently being executed on my hardware.**
+**The application will not respond to any commands unless it is currently being executed on my hardware.**
 
 ### Method 2
 
