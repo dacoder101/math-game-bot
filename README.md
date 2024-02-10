@@ -18,4 +18,4 @@ Add [this application](https://discord.com/api/oauth2/authorize?client_id=120465
 
 ### Method 2
 
-Clone the repository, and follow the instructions for contributing. Execute the script, and the bot should go online.
+Clone the repository, and follow the instructions for contributing. Execute `run.py`, and the bot should go online.
