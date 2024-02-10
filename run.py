@@ -4,11 +4,12 @@ import os
 
 from math_game_bot.bot import MathGameBot
 
+TOKEN = os.environ.get("MATH_BOT_TOKEN")
+
 
 def run_bot():
     """Start the bot."""
 
-    TOKEN = os.environ.get("MATH_BOT_TOKEN")
     bot = MathGameBot(TOKEN)
     bot.run_bot()
 
