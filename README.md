@@ -2,6 +2,10 @@
 
 A discord bot for a simple math game, written with Discord.py
 
+Taken from PROJECTS.md inside [dacoder101/dacoder101](https://github.com/dacoder101/dacoder101/blob/main/PROJECTS.md),
+
+> A Discord.py math game bot inspired by those math worksheets where students use a set of numbers, and write equations for every number, in say one through twenty. Made so I can grasp Discord bot development a little more, and just code some Python, which I haven't used to make any large projects for a while.
+
 ## Contributing/Executing
 
 Install all dependencies using `poetry install` after cloning the repository. You will need to configure your IDE with the virtual environment it generates, or it may not detect the installed dependencies, or execute the script with `poetry run` directly.
