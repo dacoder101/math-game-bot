@@ -1,8 +1,8 @@
 # Math Game Bot
 
-A discord bot for a simple math game, written with Discord.py
+A discord bot for a simple math game, written using Discord.py and packaged with Poetry.
 
-Taken from PROJECTS.md inside [dacoder101/dacoder101](https://github.com/dacoder101/dacoder101/blob/main/PROJECTS.md),
+Per [PROJECTS.md](https://github.com/dacoder101/dacoder101/blob/main/PROJECTS.md),
 
 > A Discord.py math game bot inspired by those math worksheets where students use a set of numbers, and write equations for every number, in say one through twenty. Made so I can grasp Discord bot development a little more, and just code some Python, which I haven't used to make any large projects for a while.
 
