@@ -10,7 +10,7 @@ class MathGame:
 
     def validate_ints(self, ints):
         """Validate `ints` parameter to only accept integers, and sort them."""
-        
+
         if not all(isinstance(i, int) for i in ints):
             raise ValueError("All elements in ints must be integers")
         return sorted(ints)
