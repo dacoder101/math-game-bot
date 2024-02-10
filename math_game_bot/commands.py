@@ -1,17 +1,12 @@
-from discord.ext import commands
+"""Command functionality for the bot."""
 
 
-class MathBotCommands(commands.Cog):
+class MathBotCommands:
     """Command functionality for the bot."""
 
     def __init__(self, bot):
-        self.bot = bot
-
-    @commands.command(name="ping")
-    async def ping(self, ctx):
-        """Pong!"""
-        await ctx.send("Pong!")
-
-    def setup(self):
-        """Set up the cog."""
-        self.bot.add_cog(self)
+        @bot.command(name="ping")
+        async def ping(ctx):
+            """Display the ping in milliseconds."""
+            latency = bot.latency * 1000
+            await ctx.send(f"Ping: {latency:.2f}ms")

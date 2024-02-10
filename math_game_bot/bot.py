@@ -13,12 +13,12 @@ class MathGameBot(commands.Bot):
         super().__init__(command_prefix="!", intents=discord.Intents.all())
         self.token = token
 
+        MathBotCommands(self)
+
     async def on_ready(self):
         """Prints a message when the bot is ready."""
         print(f"Logged in as {self.user.name}")
 
     def run_bot(self):
         """Start the bot."""
-        bot_commands = MathBotCommands(self)
-        bot_commands.setup()
         self.run(self.token)
