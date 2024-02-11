@@ -26,4 +26,4 @@ Add [this application](https://discord.com/api/oauth2/authorize?client_id=120465
 
 Clone the repository, and follow the instructions for contributing. After exporting the token and executing `run.py`, the bot should go online.
 
-Exporting an environment variable only lasts in that terminal session, meaning the token could be lost. You may want to consider configuring the run script to use `dotenv`, and create a `.env` file to store your token.
+Exporting an environment variable using the `export` command only lasts for the duration of the terminal session it was used, meaning the token could be lost. You may want to consider creating a `.env` file to store the token.

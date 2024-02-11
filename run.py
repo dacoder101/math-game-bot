@@ -2,8 +2,11 @@
 
 import os
 
+from dotenv import load_dotenv
+
 from math_game_bot.bot import MathGameBot
 
+load_dotenv()
 TOKEN = os.environ.get("MATH_BOT_TOKEN")
 
 
