@@ -1,4 +1,4 @@
-"""Execute the bot."""
+"""Example bot execution script, used to start the bot."""
 
 import os
 
