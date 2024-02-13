@@ -1,6 +1,6 @@
 """Math game functionality for the bot."""
 
-from .parser import Parser
+# from .parser import Parser
 
 
 class MathGame:
@@ -102,5 +102,5 @@ class Equation:
         """Check if an equation is equal to self.max."""
 
         return (
-            eval(self.equation) == self.game.game_max
+            eval(self.equation) <= self.game.game_max
         )  # Temporary, will create a custom parser later
