@@ -99,8 +99,10 @@ class Equation:
         )
 
     def is_solution(self):
-        """Check if an equation is equal to self.max."""
+        """Check if the solution to the equation is valid."""
+
+        solution = eval(self.equation)
 
         return (
-            eval(self.equation) <= self.game.game_max
+            solution >= 0 and <= solution <= 20
         )  # Temporary, will create a custom parser later
