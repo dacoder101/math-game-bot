@@ -10,6 +10,7 @@ class MathGameBot(commands.Bot):
     """Math game bot for Discord."""
 
     def __init__(self, token):
+        """Setup the bot, and add the commands."""
         super().__init__(command_prefix="!", intents=discord.Intents.all())
         self.token = token
 
