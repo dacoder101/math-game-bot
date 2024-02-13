@@ -1,5 +1,7 @@
 """Math game functionality for the bot."""
 
+from .parser import Parser
+
 
 class MathGame:
     """Math functionality for the bot. `operations` is a list of valid mathematical operations. If `operations` is None, the default operations are used."""
