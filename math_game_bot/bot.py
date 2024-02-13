@@ -3,7 +3,7 @@
 import discord
 from discord.ext import commands
 
-from .commands import MathBotCommands
+from .commands import setup_commands
 
 
 class MathGameBot(commands.Bot):
@@ -13,7 +13,7 @@ class MathGameBot(commands.Bot):
         super().__init__(command_prefix="!", intents=discord.Intents.all())
         self.token = token
 
-        MathBotCommands(self)
+        setup_commands(self)
 
         @self.event
         async def on_ready():
