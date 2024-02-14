@@ -13,6 +13,8 @@ class MathGame:
 
         self.operations = self.validate_operations(operations)
 
+        self.game_equations = {i: "" for i in range(0, self.game_max + 1)}
+
     def __str__(self):
         return f"""
         Math Game
@@ -63,10 +65,31 @@ class MathGame:
 
         return operations
 
-    def test_equation(self, equation):
+    def add_equation(self, equation):
         """Check if the solution to the equation is valid."""
 
-        return Equation(equation, self).test_equation()
+        solution = Equation(equation, self).test_equation()
+
+        if self.game_equations[solution] == "":
+            self.game_equations[solution] = equation
+            return True
+
+        raise InvalidSolutionError(
+            "A solution for the submitted equation already exists"
+        )
+
+    def get_equations(self):
+        """Return all the equations in the game in as an formatted string."""
+
+        formatted_equations = []
+
+        for k, v in self.game_equations.items():
+            if v == "":
+                formatted_equations.append(f"{k}: Not Solved")
+            else:
+                formatted_equations.append(f"{k}: {v}")
+
+        return "\n".join(formatted_equations)
 
 
 class Equation:
@@ -88,7 +111,7 @@ class Equation:
         if not self.is_solution():
             raise InvalidSolutionError()
 
-        return True
+        return eval(self.equation)
 
     def is_valid_equation(self):
         """Check if an equation is valid."""
@@ -105,5 +128,12 @@ class Equation:
         solution = eval(self.equation)
 
         return (
-            solution >= 0 and solution <= 20
+            solution >= 0 and solution <= self.game.game_max
         )  # Temporary, will create a custom parser later
+
+
+game = MathGame([1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+game.add_equation("1+2")
+
+print(game.get_equations())
