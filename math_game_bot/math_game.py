@@ -1,10 +1,11 @@
 """Math game functionality for the bot."""
 
 # from .parser import Parser
+from .exceptions import *
 
 
 class MathGame:
-    """Math functionality for the bot. `operations` is a list of valid mathematical operations. If `operations` is None, the default operations are used."""
+    """Math game functionality for the bot. If `operations` is None, the default operations are used."""
 
     def __init__(self, ints, game_max=20, operations=None):
         self.ints = self.validate_ints(ints)
@@ -27,10 +28,10 @@ class MathGame:
             ints = [ints]
 
         if not (all(isinstance(i, int) for i in ints) and len(ints) > 0):
-            raise ValueError("All elements in ints must be integers")
+            raise InvalidArgumentError("Elements in argument ints are not of type int")
 
         if not (all(i < 10 for i in ints)):
-            raise ValueError("All elements in ints must be greater than 9")
+            raise InvalidArgumentError("Elements in argument ints are greater than 9")
 
         return [str(i) for i in sorted(ints)]
 
@@ -38,7 +39,7 @@ class MathGame:
         """Validate `max` parameter to only accept integers."""
 
         if not isinstance(game_max, int):
-            raise ValueError("Game max must be an integer")
+            raise InvalidArgumentError("Game max argument is not of type int")
 
         return game_max
 
@@ -56,14 +57,14 @@ class MathGame:
             return default_operations
 
         if not all(i in default_operations for i in operations):
-            raise ValueError(
-                "All elements in operations must be valid mathematical operations"
+            raise InvalidArgumentError(
+                "Elements in argument operations are invalid mathematical operations"
             )
 
         return operations
 
     def test_equation(self, equation):
-        """Check if the equation is equal to self.max."""
+        """Check if the solution to the equation is valid."""
 
         return Equation(equation, self).test_equation()
 
@@ -82,10 +83,10 @@ class Equation:
         """Check if the equation is equal to self.max."""
 
         if not self.is_valid_equation():
-            return "The equation includes invalid characters."
+            raise InvalidCharactersError()
 
         if not self.is_solution():
-            return "The equation doesn't equal match the target value."
+            raise InvalidSolutionError()
 
         return True
 
@@ -104,5 +105,5 @@ class Equation:
         solution = eval(self.equation)
 
         return (
-            solution >= 0 and <= solution <= 20
+            solution >= 0 and solution <= 20
         )  # Temporary, will create a custom parser later
