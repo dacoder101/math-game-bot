@@ -13,7 +13,10 @@ class InvalidArgumentError(Exception):
 class InvalidCharactersError(Exception):
     """Exception for invalid equation characters."""
 
-    def __init__(self, message="The equation includes invalid characters, integers, or operations"):
+    def __init__(
+        self,
+        message="The equation includes invalid characters, integers, or operations",
+    ):
         self.message = message
 
         super().__init__(self.message)

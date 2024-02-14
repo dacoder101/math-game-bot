@@ -1,7 +1,37 @@
 """Math game functionality for the bot."""
 
 # from .parser import Parser
-from .exceptions import *
+# from .exceptions import *
+
+
+class InvalidArgumentError(Exception):
+    """Exception for invalid class arguments."""
+
+    def __init__(self, message="An invalid argument was passed."):
+        self.message = message
+
+        super().__init__(self.message)
+
+
+class InvalidCharactersError(Exception):
+    """Exception for invalid equation characters."""
+
+    def __init__(
+        self,
+        message="The equation includes invalid characters, integers, or operations",
+    ):
+        self.message = message
+
+        super().__init__(self.message)
+
+
+class InvalidSolutionError(Exception):
+    """Exception for invalid equation solutions."""
+
+    def __init__(self, message="The equation solution is invalid"):
+        self.message = message
+
+        super().__init__(self.message)
 
 
 class MathGame:
@@ -12,6 +42,8 @@ class MathGame:
         self.game_max = self.validate_max(game_max)
 
         self.operations = self.validate_operations(operations)
+
+        self.game_equations = {i: "" for i in range(0, self.game_max + 1)}
 
     def __str__(self):
         return f"""
@@ -63,10 +95,18 @@ class MathGame:
 
         return operations
 
-    def test_equation(self, equation):
+    def add_equation(self, equation):
         """Check if the solution to the equation is valid."""
 
-        return Equation(equation, self).test_equation()
+        solution = Equation(equation, self).test_equation()
+
+        if self.game_equations[solution] == "":
+            self.game_equations[solution] = equation
+            return True
+
+        raise InvalidSolutionError(
+            "A solution for the submitted equation already exists"
+        )
 
 
 class Equation:
@@ -88,7 +128,7 @@ class Equation:
         if not self.is_solution():
             raise InvalidSolutionError()
 
-        return True
+        return eval(self.equation)
 
     def is_valid_equation(self):
         """Check if an equation is valid."""
@@ -105,5 +145,5 @@ class Equation:
         solution = eval(self.equation)
 
         return (
-            solution >= 0 and solution <= 20
+            solution >= 0 and solution <= self.game.game_max
         )  # Temporary, will create a custom parser later
