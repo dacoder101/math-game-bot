@@ -1,37 +1,7 @@
 """Math game functionality for the bot."""
 
 # from .parser import Parser
-# from .exceptions import *
-
-
-class InvalidArgumentError(Exception):
-    """Exception for invalid class arguments."""
-
-    def __init__(self, message="An invalid argument was passed."):
-        self.message = message
-
-        super().__init__(self.message)
-
-
-class InvalidCharactersError(Exception):
-    """Exception for invalid equation characters."""
-
-    def __init__(
-        self,
-        message="The equation includes invalid characters, integers, or operations",
-    ):
-        self.message = message
-
-        super().__init__(self.message)
-
-
-class InvalidSolutionError(Exception):
-    """Exception for invalid equation solutions."""
-
-    def __init__(self, message="The equation solution is invalid"):
-        self.message = message
-
-        super().__init__(self.message)
+from .exceptions import *
 
 
 class MathGame:
@@ -108,6 +78,19 @@ class MathGame:
             "A solution for the submitted equation already exists"
         )
 
+    def get_equations(self):
+        """Return all the equations in the game in as an formatted string."""
+
+        formatted_equations = []
+
+        for k, v in self.game_equations.items():
+            if v == "":
+                formatted_equations.append(f"{k}: Not Solved")
+            else:
+                formatted_equations.append(f"{k}: {v}")
+
+        return "\n".join(formatted_equations)
+
 
 class Equation:
     """Equation class for the math game."""
@@ -147,3 +130,10 @@ class Equation:
         return (
             solution >= 0 and solution <= self.game.game_max
         )  # Temporary, will create a custom parser later
+
+
+game = MathGame([1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+game.add_equation("1+2")
+
+print(game.get_equations())
