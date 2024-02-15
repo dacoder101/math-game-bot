@@ -1,5 +1,7 @@
 """Lexer for the math game bot."""
 
+# from .tokens import TokenType
+
 
 class Lexer:
     """Lexer class for the math game bot."""
