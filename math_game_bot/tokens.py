@@ -1,21 +1,15 @@
 """Tokens for equations in the math game."""
 
-
-class Number:
-    """Number token for the math game."""
-
-    def __init__(self, value):
-        self.value = value
-
-    def __str__(self):
-        return f"Number({self.value})"
+from enum import Enum
 
 
-class Operator:
-    """Operator token for the math game."""
+class TokenType(Enum):
+    """Types of tokens."""
 
-    def __init__(self, value):
-        self.value = value
-
-    def __str__(self):
-        return f"Operator({self.value})"
+    NUMBER = 1
+    OPERATOR = 2
+    LEFT_PAREN = 3
+    RIGHT_PAREN = 4
+    FACTORIAL = 5
+    SQRT = 6
+    LOGARITHM = 7
