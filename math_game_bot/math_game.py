@@ -130,10 +130,3 @@ class Equation:
         return (
             solution >= 0 and solution <= self.game.game_max
         )  # Temporary, will create a custom parser later
-
-
-game = MathGame([1, 2, 3, 4, 5, 6, 7, 8, 9])
-
-game.add_equation("1+2")
-
-print(game.get_equations())
