@@ -4,7 +4,7 @@ import discord
 
 
 def setup_commands(bot):
-    """Command functionality for the bot."""
+    """Command functionality class for the bot."""
 
     @bot.tree.command(name="ping", description="Display the ping in milliseconds.")
     async def ping(interaction: discord.Interaction):

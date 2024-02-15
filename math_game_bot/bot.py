@@ -7,7 +7,7 @@ from .commands import setup_commands
 
 
 class MathGameBot(commands.Bot):
-    """Math game bot for Discord."""
+    """Math game bot class for Discord."""
 
     def __init__(self, token):
         """Setup the bot, and add the commands."""
