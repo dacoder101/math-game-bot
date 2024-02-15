@@ -5,7 +5,7 @@ from .exceptions import *
 
 
 class MathGame:
-    """Math game functionality for the bot. If `operations` is None, the default operations are used."""
+    """Math game functionality class for the bot. If `operations` is None, the default operations are used."""
 
     def __init__(self, ints, game_max=20, operations=None):
         self.ints = self.validate_ints(ints)
