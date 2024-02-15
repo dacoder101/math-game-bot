@@ -6,10 +6,13 @@ from enum import Enum
 class TokenType(Enum):
     """Types of tokens."""
 
-    NUMBER = 1
-    OPERATOR = 2
-    LEFT_PAREN = 3
-    RIGHT_PAREN = 4
-    FACTORIAL = 5
-    SQRT = 6
-    LOGARITHM = 7
+    INT = 1
+    ADD = 2
+    SUB = 3
+    MUL = 4
+    DIV = 5
+    MOD = 7
+    EXP = 8
+    LOG = 9
+    LPAREN = 10
+    RPAREN = 11
