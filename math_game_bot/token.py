@@ -8,4 +8,9 @@ from .token_type import TokenType
 class Token:
     """Token functionality class for operators and keyword tokens utilized."""
 
-    pass
+    token_type: TokenType
+    value: str
+
+    def __str__(self):
+        """Return string representation of token."""
+        return self.value

@@ -1,7 +1,6 @@
 """Command functionality for the bot."""
 
 from discord import Embed, Interaction
-import discord
 
 
 def setup_commands(bot):
