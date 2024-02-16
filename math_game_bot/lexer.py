@@ -1,6 +1,6 @@
 """Lexer for the math game bot."""
 
-from .tokens import TokenType
+from .token_type import TokenType
 
 
 class Lexer:
