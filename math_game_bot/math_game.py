@@ -1,7 +1,7 @@
 """Math game functionality for the bot."""
 
-# from .parser import Parser
 from .exceptions import *
+from .equation import Equation
 
 
 class MathGame:
@@ -21,6 +21,10 @@ class MathGame:
 
         Allowed Numbers: {", ".join(str(i) for i in self.ints)}
         Write equations to complete all numbers from 0 to {self.game_max} using the allowed numbers and basic operations.
+
+        Current equations:
+
+        {self.get_equations()}
         """
 
     def validate_ints(self, ints):
@@ -90,43 +94,3 @@ class MathGame:
                 formatted_equations.append(f"{k}: {v}")
 
         return "\n".join(formatted_equations)
-
-
-class Equation:
-    """Equation class for the math game."""
-
-    def __init__(self, equation, math_game):
-        self.equation = equation
-        self.game = math_game
-
-    def __str__(self):
-        return self.equation
-
-    def test_equation(self):
-        """Check if the equation is equal to self.max."""
-
-        if not self.is_valid_equation():
-            raise InvalidCharactersError()
-
-        if not self.is_solution():
-            raise InvalidSolutionError()
-
-        return eval(self.equation)
-
-    def is_valid_equation(self):
-        """Check if an equation is valid."""
-
-        print(self.game.ints, self.game.operations, self.equation)
-
-        return all(
-            c in self.game.ints or c in self.game.operations for c in self.equation
-        )
-
-    def is_solution(self):
-        """Check if the solution to the equation is valid."""
-
-        solution = eval(self.equation)
-
-        return (
-            solution >= 0 and solution <= self.game.game_max
-        )  # Temporary, will create a custom parser later
