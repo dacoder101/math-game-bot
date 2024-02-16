@@ -41,6 +41,10 @@ class Lexer:
         """Check if a character is an operator."""
         return char in OPERATIONS
 
+    def is_alpha(self, char):
+        """Check if a character is a letter."""
+        return char.isalpha()
+
     def generate_tokens(self):
         """Generate tokens from the equation."""
 
