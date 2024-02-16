@@ -59,6 +59,9 @@ class Lexer:
             elif self.is_operator(self.current_char):
                 yield self.generate_operator()
 
+            elif self.is_alpha(self.current_char):
+                yield self.generate_keyword()
+
     def advance(self):
         """Advance the iterator and return the next character."""
 
@@ -98,3 +101,15 @@ class Lexer:
         self.advance()
 
         return Token(OPERATIONS[operation], operation)
+
+    def generate_keyword(self):
+        """Generate a keyword token from the equation."""
+        keyword = self.current_char
+        self.advance()
+
+        while self.current_char is not None and self.is_alpha(self.current_char):
+            keyword += self.current_char
+            self.advance()
+
+        if keyword in KEYWORDS:
+            return Token(KEYWORDS[keyword], keyword)
