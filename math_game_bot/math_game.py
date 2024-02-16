@@ -20,6 +20,10 @@ class MathGame:
 
         Allowed Numbers: {", ".join(str(i) for i in self.ints)}
         Write equations to complete all numbers from 0 to {self.game_max} using the allowed numbers and basic operations.
+
+        Current equations:
+
+        {self.get_equations()}
         """
 
     def validate_ints(self, ints):
