@@ -1,6 +1,6 @@
 """Math game functionality for the bot."""
 
-from .exceptions import *
+from .exceptions import InvalidArgumentError, InvalidSolutionError
 from .equation import Equation
 
 
@@ -36,7 +36,7 @@ class MathGame:
         if not (all(isinstance(i, int) for i in ints) and len(ints) > 0):
             raise InvalidArgumentError("Elements in argument ints are not of type int")
 
-        if not (all(i < 10 for i in ints)):
+        if not all(i < 10 for i in ints):
             raise InvalidArgumentError("Elements in argument ints are greater than 9")
 
         return [str(i) for i in sorted(ints)]
