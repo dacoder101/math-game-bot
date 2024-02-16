@@ -43,7 +43,7 @@ class Lexer:
             if self.current_char in WHITESPACE:
                 self.advance()
 
-            elif self.current_char.isdigit() or self.current_char == ".":
+            elif self.is_digit(self.current_char):
                 yield self.generate_number()
 
     def advance(self):
