@@ -2,8 +2,6 @@
 
 from .tokens import TokenType
 
-from enum import Enum
-
 
 class Lexer:
     """Lexer class for the math game bot."""
