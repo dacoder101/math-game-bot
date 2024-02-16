@@ -8,8 +8,8 @@ from .token_type import TokenType
 class Token:
     """Token functionality class for operators and keyword tokens utilized."""
 
-    token_type: TokenType
+    type: TokenType
     value: any = None
 
     def __repr__(self):
-        return f"{self.token_type.name}:{self.value if self.value is not None else ''}"
+        return self.type.name + (f":{self.value}" if self.value is not None else "")

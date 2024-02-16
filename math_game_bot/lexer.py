@@ -2,6 +2,7 @@
 
 from .token_type import TokenType
 from .token import Token
+from .exceptions import InvalidCharactersError
 
 
 WHITESPACE = " \n\t"
@@ -62,6 +63,9 @@ class Lexer:
             elif self.is_alpha(self.current_char):
                 yield self.generate_keyword()
 
+            else:
+                raise InvalidCharactersError(f"Invalid character: {self.current_char}")
+
     def advance(self):
         """Advance the iterator and return the next character."""
 
@@ -83,9 +87,6 @@ class Lexer:
             if number.count(".") > 1:
                 break
 
-        number += self.current_char
-        self.advance()
-
         if number.startswith("."):
             number = "0" + number
 
@@ -100,7 +101,7 @@ class Lexer:
         operation = self.current_char
         self.advance()
 
-        return Token(OPERATIONS[operation], operation)
+        return Token(OPERATIONS[operation])
 
     def generate_keyword(self):
         """Generate a keyword token from the equation."""
@@ -113,3 +114,5 @@ class Lexer:
 
         if keyword in KEYWORDS:
             return Token(KEYWORDS[keyword], keyword)
+        else:
+            raise InvalidCharactersError(f"Invalid keyword: {keyword}")
