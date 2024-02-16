@@ -6,7 +6,7 @@ from enum import Enum
 class TokenType(Enum):
     """Mathematical token types."""
 
-    INT = 1
+    NUM = 1
     ADD = 2
     SUB = 3
     MUL = 4
