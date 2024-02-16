@@ -9,8 +9,7 @@ class Token:
     """Token functionality class for operators and keyword tokens utilized."""
 
     token_type: TokenType
-    value: str
+    value: any = None
 
-    def __str__(self):
-        """Return string representation of token."""
-        return self.value
+    def __repr__(self):
+        return f"{self.token_type.name}:{self.value if self.value is not None else ''}"
