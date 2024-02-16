@@ -22,7 +22,7 @@ class Equation:
         if not self.is_solution():
             raise InvalidSolutionError()
 
-        return eval(self.equation)
+        return self.evaluate()
 
     def is_valid_equation(self):
         """Check if an equation is valid."""
@@ -36,8 +36,13 @@ class Equation:
     def is_solution(self):
         """Check if the solution to the equation is valid."""
 
-        solution = eval(self.equation)
+        solution = self.evaluate()
 
         return (
             solution >= 0 and solution <= self.game.game_max
-        )  # Temporary, will create a custom interpreter later
+        )
+    
+    def evaluate(self):
+        """Evaluate the equation."""
+
+        return eval(self.equation) # Temporary, will create a custom interpreter later
