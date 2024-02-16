@@ -1,6 +1,5 @@
 """Math game functionality for the bot."""
 
-# from .parser import Parser
 from .exceptions import *
 
 

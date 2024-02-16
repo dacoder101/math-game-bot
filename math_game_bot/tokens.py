@@ -4,7 +4,7 @@ from enum import Enum
 
 
 class TokenType(Enum):
-    """Types of tokens."""
+    """Mathematical token types."""
 
     INT = 1
     ADD = 2
@@ -13,7 +13,8 @@ class TokenType(Enum):
     DIV = 5
     MOD = 7
     EXP = 8
-    LOG = 9
-    FACTORIAL = 10
-    LPAREN = 11
-    RPAREN = 12
+    FACTORIAL = 9
+    SQRT = 10
+    LOG = 11
+    LPAREN = 12
+    RPAREN = 13
