@@ -7,8 +7,7 @@ class Lexer:
     """Lexer class for the math game bot."""
 
     def __init__(self, equation):
-        self.equation = equation.lower()
-        self.current_char = self.equation[0]
+        self.equation = iter(equation.lower())
 
         self.operations = {
             "+": TokenType.ADD,
@@ -26,3 +25,16 @@ class Lexer:
         }
 
         self.keywords = {"sqrt": TokenType.EXP, "log": TokenType.LOG}
+
+    def advance(self):
+        """Advance the iterator and return the next character."""
+
+        try:
+            return next(self.equation)
+        except StopIteration:
+            return None
+
+    def generate_tokens(self):
+        """Generate tokens from the equation."""
+
+        pass
