@@ -96,6 +96,20 @@ class Parser:
         """Parse a factor."""
         token = self.current_token
 
+        if token.type == TokenType.LPAREN:
+            self.advance()
+            result = self.expr()
+
+            if self.current_token is None:
+                raise InvalidCharactersError("Invalid syntax")
+
+            if self.current_token.type != TokenType.RPAREN:
+                raise InvalidCharactersError("Invalid syntax")
+
+            self.advance()
+
+            return result
+
         if token.type == TokenType.NUM:
             self.advance()
 
