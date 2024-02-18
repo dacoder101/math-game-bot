@@ -21,10 +21,10 @@ OPERATIONS = {
     "]": TokenType.RPAREN,
 }
 
-KEYWORDS = {
+"""KEYWORDS = {
     "sqrt": TokenType.SQRT,
     "log": TokenType.LOG,
-}
+}"""
 
 
 class Lexer:
@@ -42,9 +42,9 @@ class Lexer:
         """Check if a character is an operator."""
         return char in OPERATIONS
 
-    def is_alpha(self, char):
-        """Check if a character is a letter."""
-        return char.isalpha()
+    """def is_alpha(self, char):
+        """"""Check if a character is a letter."""""""
+        return char.isalpha()"""
 
     def generate_tokens(self):
         """Generate tokens from the equation."""
@@ -60,8 +60,8 @@ class Lexer:
             elif self.is_operator(self.current_char):
                 yield self.generate_operator()
 
-            elif self.is_alpha(self.current_char):
-                yield self.generate_keyword()
+            #elif self.is_alpha(self.current_char):
+            #    yield self.generate_keyword()
 
             else:
                 raise InvalidCharactersError(f"Invalid character: {self.current_char}")
@@ -103,8 +103,8 @@ class Lexer:
 
         return Token(OPERATIONS[operation])
 
-    def generate_keyword(self):
-        """Generate a keyword token from the equation."""
+    """def generate_keyword(self):
+        """"""Generate a keyword token from the equation.""""""""
         keyword = self.current_char
         self.advance()
 
@@ -115,4 +115,4 @@ class Lexer:
         if keyword in KEYWORDS:
             return Token(KEYWORDS[keyword])
         else:
-            raise InvalidCharactersError(f"Invalid keyword: {keyword}")
+            raise InvalidCharactersError(f"Invalid keyword: {keyword}")"""
