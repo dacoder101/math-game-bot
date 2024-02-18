@@ -14,7 +14,7 @@ class TokenType(Enum):
     MOD = 7
     EXP = 8
     FACTORIAL = 9
-    SQRT = 10
-    LOG = 11
+    # SQRT = 10
+    # LOG = 11
     LPAREN = 12
     RPAREN = 13
