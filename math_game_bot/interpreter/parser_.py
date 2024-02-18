@@ -9,12 +9,12 @@ class Parser:
     """Parser class for the math game."""
 
     def __init__(self, tokens):
+        """Initialize the Parser object."""
         self.tokens = iter(tokens)
         self.advance()
 
     def advance(self):
         """Advance to the next token."""
-
         try:
             self.current_token = next(self.tokens)
         except StopIteration:
@@ -22,7 +22,6 @@ class Parser:
 
     def parse(self):
         """Parse the tokens and return the AST."""
-
         if self.current_token is None:
             return None
 
@@ -35,7 +34,6 @@ class Parser:
 
     def expr(self):
         """Parse an expression."""
-
         result = self.term()
 
         while self.current_token is not None and self.current_token.type in (
@@ -52,7 +50,7 @@ class Parser:
         return result
 
     def term(self):
-
+        """Parse a term."""
         result = self.power()
 
         while self.current_token is not None and self.current_token.type in (
@@ -69,7 +67,7 @@ class Parser:
         return result
 
     def power(self):
-
+        """Parse a power."""
         result = self.factorial()
 
         while self.current_token is not None and self.current_token.type in (
@@ -82,6 +80,7 @@ class Parser:
         return result
 
     def factorial(self):
+        """Parse a factorial."""
         result = self.factor()
 
         while self.current_token is not None and self.current_token.type in (
@@ -95,23 +94,21 @@ class Parser:
 
     def factor(self):
         """Parse a factor."""
-
         token = self.current_token
 
-        if token.type == TokenType.LPAREN:
-            self.advance()
-            result = self.expr()
-
-            if self.current_token.type != TokenType.RPAREN:
-                raise InvalidCharactersError("Invalid syntax")
-
-            self.advance()
-
-            return result
-
-        elif token.type == TokenType.NUM:
+        if token.type == TokenType.NUM:
             self.advance()
 
             return NumberNode(token.value)
+
+        elif token.type == TokenType.ADD:
+            self.advance()
+
+            return PositiveNode(self.factor())
+
+        elif token.type == TokenType.SUB:
+            self.advance()
+
+            return NegativeNode(self.factor())
 
         raise InvalidCharactersError("Invalid syntax")

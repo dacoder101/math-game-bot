@@ -103,3 +103,27 @@ class FactorialNode:
 
     def __repr__(self):
         return f"({self.node}!)"
+
+
+@dataclass
+class PositiveNode:
+    """
+    Represents a node that "positives" the value of another node.
+    """
+
+    node: any
+
+    def __repr__(self):
+        return f"(+{self.node})"
+
+
+@dataclass
+class NegativeNode:
+    """
+    Represents a node that negates the value of another node.
+    """
+
+    node: any
+
+    def __repr__(self):
+        return f"(-{self.node})"
