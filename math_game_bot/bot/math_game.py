@@ -2,8 +2,6 @@
 
 from dataclasses import dataclass
 
-from ..exceptions import InvalidArgumentError, InvalidSolutionError
-
 
 @dataclass
 class MathGame:
