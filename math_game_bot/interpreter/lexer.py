@@ -2,7 +2,7 @@
 
 from .token_type import TokenType
 from .token import Token
-from .exceptions import InvalidCharactersError
+from ..exceptions import InvalidCharactersError
 
 
 WHITESPACE = " \n\t"
