@@ -81,7 +81,7 @@ class ModuloNode:
 
 
 @dataclass
-class ExponentNode:
+class PowerNode:
     """
     Represents a node that performs exponentiation operation between two nodes.
     """
@@ -102,4 +102,4 @@ class FactorialNode:
     node: any
 
     def __repr__(self):
-        return f"{self.node}!"
+        return f"({self.node}!)"

@@ -53,7 +53,7 @@ class Parser:
 
     def term(self):
 
-        result = self.factor()
+        result = self.power()
 
         while self.current_token is not None and self.current_token.type in (
             TokenType.MUL,
@@ -61,10 +61,35 @@ class Parser:
         ):
             if self.current_token.type == TokenType.MUL:
                 self.advance()
-                result = MultiplyNode(result, self.factor())
+                result = MultiplyNode(result, self.power())
             elif self.current_token.type == TokenType.DIV:
                 self.advance()
-                result = DivideNode(result, self.factor())
+                result = DivideNode(result, self.power())
+
+        return result
+
+    def power(self):
+
+        result = self.factorial()
+
+        while self.current_token is not None and self.current_token.type in (
+            TokenType.EXP,
+        ):
+            if self.current_token.type == TokenType.EXP:
+                self.advance()
+                result = PowerNode(result, self.factorial())
+
+        return result
+
+    def factorial(self):
+        result = self.factor()
+
+        while self.current_token is not None and self.current_token.type in (
+            TokenType.FACTORIAL,
+        ):
+            if self.current_token.type == TokenType.FACTORIAL:
+                self.advance()
+                result = FactorialNode(result)
 
         return result
 
