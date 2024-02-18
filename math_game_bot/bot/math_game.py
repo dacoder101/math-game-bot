@@ -1,7 +1,7 @@
 """Math game functionality for the bot."""
 
 from .exceptions import InvalidArgumentError, InvalidSolutionError
-from .equation import Equation
+from ..equation import Equation
 
 
 class MathGame:
