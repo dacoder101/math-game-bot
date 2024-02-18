@@ -162,3 +162,7 @@ cython_debug/
 # Poetry
 
 poetry.lock
+
+# Testing
+
+test.py

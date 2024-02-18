@@ -22,7 +22,7 @@ OPERATIONS = {
 }
 
 KEYWORDS = {
-    "sqrt": TokenType.EXP,
+    "sqrt": TokenType.SQRT,
     "log": TokenType.LOG,
 }
 
@@ -113,6 +113,6 @@ class Lexer:
             self.advance()
 
         if keyword in KEYWORDS:
-            return Token(KEYWORDS[keyword], keyword)
+            return Token(KEYWORDS[keyword])
         else:
             raise InvalidCharactersError(f"Invalid keyword: {keyword}")
