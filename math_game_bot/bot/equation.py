@@ -1,6 +1,6 @@
 """Equation functionality for the math game bot."""
 
-from .exceptions import InvalidCharactersError, InvalidSolutionError
+from ..exceptions import InvalidCharactersError, InvalidSolutionError
 
 
 class Equation:
@@ -38,11 +38,9 @@ class Equation:
 
         solution = self.evaluate()
 
-        return (
-            solution >= 0 and solution <= self.game.game_max
-        )
-    
+        return solution >= 0 and solution <= self.game.game_max
+
     def evaluate(self):
         """Evaluate the equation."""
 
-        return eval(self.equation) # Temporary, will create a custom interpreter later
+        return eval(self.equation)  # Temporary, will create a custom interpreter later
