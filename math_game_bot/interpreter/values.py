@@ -1,9 +1,11 @@
+"""Contains value classes for the interpreter."""
+
 from dataclasses import dataclass
 
 
 @dataclass
 class Number:
-    "Number dataclass to represent a numerical value."
+    "Number class to represent a numerical value."
 
     value: float
 
