@@ -160,4 +160,9 @@ cython_debug/
 #.idea/
 
 # Poetry
+
 poetry.lock
+
+# Testing
+
+test.py
