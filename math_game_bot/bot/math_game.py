@@ -7,7 +7,7 @@ from ..exceptions import InvalidArgumentError, InvalidSolutionError
 
 @dataclass
 class MathGame:
-    """Math game functionality class for the bot. If `operations` is None, the default operations are used."""
+    """Math game functionality class for the bot."""
 
     ints: dict
     game_max: int
@@ -18,6 +18,11 @@ class MathGame:
             self.disallowed_operations = []
 
         self.game_equations = {i: "" for i in range(0, self.game_max + 1)}
+
+    def __str__(self):
+        return f"""Equations:
+        
+        {self.get_equations()}"""
 
     def get_equations(self):
         """Return all the equations in the game in as an formatted string."""
