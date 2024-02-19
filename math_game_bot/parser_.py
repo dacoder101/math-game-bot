@@ -2,7 +2,7 @@
 
 from .token import TokenType
 from .nodes import *
-from ..exceptions import InvalidCharactersError
+from .exceptions import InvalidCharactersError
 
 
 class Parser:
