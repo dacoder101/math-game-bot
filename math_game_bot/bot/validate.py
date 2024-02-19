@@ -10,7 +10,7 @@ class ValidateIntegers:
     ints: str
     
     def get_numerical_form(self, x):
-        """Return 'x' as integer, or raise an error if impossible."""
+        """Return `x` as integer, or raise an error if impossible."""
 
         try:
             return int(x)
