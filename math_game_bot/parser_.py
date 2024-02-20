@@ -56,6 +56,7 @@ class Parser:
         while self.current_token is not None and self.current_token.type in (
             TokenType.MUL,
             TokenType.DIV,
+            TokenType.MOD,
         ):
             if self.current_token.type == TokenType.MUL:
                 self.advance()
@@ -63,6 +64,9 @@ class Parser:
             elif self.current_token.type == TokenType.DIV:
                 self.advance()
                 result = DivideNode(result, self.power())
+            elif self.current_token.type == TokenType.MOD:
+                self.advance()
+                result = ModuloNode(result, self.power())
 
         return result
 

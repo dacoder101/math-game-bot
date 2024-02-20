@@ -39,6 +39,11 @@ class Interpreter:
 
         return Number(self.visit(node.node_a).value / self.visit(node.node_b).value)
 
+    def visit_ModuloNode(self, node):
+        """Return the Number object of two nodes modulo each other."""
+
+        return Number(self.visit(node.node_a).value % self.visit(node.node_b).value)
+
     def visit_PowerNode(self, node):
         """Return the Number object of two nodes exponentially."""
 
