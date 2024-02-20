@@ -48,10 +48,6 @@ class ValidateIntegers:
 
         split_ints = [i.strip() for i in split_ints.split(",")]
 
-        print(self.ints.split(","))
-
-        print(split_ints)
-
         for i in split_ints:
             if not self.int_capability(i):
                 raise InvalidCharactersError("Int dictionary is invalid")
