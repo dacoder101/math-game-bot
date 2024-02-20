@@ -6,16 +6,14 @@ from .exceptions import InvalidCharactersError
 
 @dataclass
 class ValidateIntegers:
-    """Methods to validate an expression."""
+    """Methods to validate user's integer dictionary."""
 
     ints: str
 
     def __post_init__(self):
-        """Remove trailing comma from string."""
+        """Strip `self.ints`."""
 
         self.ints = self.ints.strip()
-
-        self.ints = self.remove_trailing_comma()
 
     def int_capability(self, x):
         """Return True if `x` is an integer, False otherwise."""
@@ -43,18 +41,37 @@ class ValidateIntegers:
 
         return x > 0
 
-    def remove_trailing_comma(self):
-        """Remove trailing comma from string."""
-
-        if self.ints[-1] == ",":
-            return self.ints[:-1]
-
-        return self.ints
-
     def ints_to_list(self):
         """Convert a string to the list type."""
 
-        pass
+        split_ints = self.ints[1:-1]
+
+        split_ints = [i.strip() for i in split_ints.split(",")]
+
+        print(self.ints.split(","))
+
+        print(split_ints)
+
+        for i in split_ints:
+            if not self.int_capability(i):
+                raise InvalidCharactersError("Int dictionary is invalid")
+
+        split_ints = [int(i) for i in split_ints]
+
+        if not self.iterate_keys(split_ints):
+            raise InvalidCharactersError("Int dictionary is invalid")
+
+        new_ints = {}
+        used_ints = []
+
+        for x in split_ints:
+
+            if x in used_ints:
+                continue
+
+            new_ints[x] = split_ints.count(x)
+
+        return new_ints
 
     def ints_to_dict(self):
         """Convert a string to the dict type."""
@@ -84,10 +101,10 @@ class ValidateIntegers:
                 return {ints: 1}
 
         elif ints[0] in "([":
-            self.ints_to_list()
+            return self.ints_to_list()
 
         elif ints[0] == "{":
-            self.ints_to_dict()
+            return self.ints_to_dict()
 
         else:
             raise InvalidCharactersError("Int dictionary is invalid")
