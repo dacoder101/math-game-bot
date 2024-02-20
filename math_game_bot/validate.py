@@ -3,6 +3,15 @@
 from dataclasses import dataclass
 from .exceptions import InvalidCharactersError
 
+"""
+Contributor Notice:
+
+THE FOLLOWING CODE IS TEMPORARY VALIDATION SOLUTION. 
+IT WILL BE LATER REPLACED WITH A SECOND, LIST/DICTIONARY INTERPRETER DESIGNED SPECIFICALLY FOR VALIDATION.
+
+This is some of the most low-quality code in the entire project. Please do not contribute to it. This is **temporary**.
+"""
+
 
 @dataclass
 class ValidateIntegers:
@@ -45,7 +54,6 @@ class ValidateIntegers:
         """Convert a string to the list type."""
 
         split_ints = self.ints[1:-1]
-
         split_ints = [i.strip() for i in split_ints.split(",")]
 
         for i in split_ints:
@@ -72,7 +80,39 @@ class ValidateIntegers:
     def ints_to_dict(self):
         """Convert a string to the dict type."""
 
-        pass
+        split_ints = self.ints[1:-1]
+
+        for i in split_ints.split(","):
+            if self.colon_count(i) != 1:
+                raise InvalidCharactersError("Int dictionary is invalid")
+
+        split_ints = [i.strip() for i in split_ints.split(",")]
+
+        dict_list = []
+
+        for i in split_ints:
+            dict_list.append([i.strip() for i in i.split(":")])
+
+        for i in dict_list:
+            if not self.iterate_int_capability(i):
+                raise InvalidCharactersError("Int dictionary is invalid")
+
+        new_ints = {}
+
+        for i in dict_list:
+            new_ints[int(i[0])] = int(i[1])
+
+        if not self.iterate_keys(new_ints.keys()) or not self.iterate_values(
+            new_ints.values()
+        ):
+            raise InvalidCharactersError("Int dictionary is invalid")
+
+        return new_ints
+
+    def iterate_int_capability(self, x):
+        """Validate a list of integers via int capability."""
+
+        return all(self.int_capability(i) for i in x)
 
     def iterate_keys(self, x):
         """Validate a list of integers via keys."""
@@ -83,6 +123,11 @@ class ValidateIntegers:
         """Validate a list of integers via values."""
 
         return all(self.verify_value(i) for i in x)
+
+    def colon_count(self, x):
+        """Return the count of colons in `x`."""
+
+        return x.count(":")
 
     def validate(self):
         """Validate; raise an exception or return a verified dictionary."""
