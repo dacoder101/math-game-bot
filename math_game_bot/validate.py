@@ -50,6 +50,26 @@ class ValidateIntegers:
 
         return x > 0
 
+    def iterate_int_capability(self, x):
+        """Validate a list of integers via int capability."""
+
+        return all(self.int_capability(i) for i in x)
+
+    def iterate_keys(self, x):
+        """Validate a list of integers via keys."""
+
+        return all(self.verify_key(i) for i in x)
+
+    def iterate_values(self, x):
+        """Validate a list of integers via values."""
+
+        return all(self.verify_value(i) for i in x)
+
+    def colon_count(self, x):
+        """Return the count of colons in `x`."""
+
+        return x.count(":")
+
     def ints_to_list(self):
         """Convert a string to the list type."""
 
@@ -108,26 +128,6 @@ class ValidateIntegers:
             raise InvalidCharactersError("Int dictionary is invalid")
 
         return new_ints
-
-    def iterate_int_capability(self, x):
-        """Validate a list of integers via int capability."""
-
-        return all(self.int_capability(i) for i in x)
-
-    def iterate_keys(self, x):
-        """Validate a list of integers via keys."""
-
-        return all(self.verify_key(i) for i in x)
-
-    def iterate_values(self, x):
-        """Validate a list of integers via values."""
-
-        return all(self.verify_value(i) for i in x)
-
-    def colon_count(self, x):
-        """Return the count of colons in `x`."""
-
-        return x.count(":")
 
     def validate(self):
         """Validate; raise an exception or return a verified dictionary."""
