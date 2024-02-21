@@ -2,6 +2,8 @@
 
 from dataclasses import dataclass
 
+from .exceptions import InvalidSolutionError
+
 from .lexer import Lexer
 from .parser_ import Parser
 from .interpreter import Interpreter
@@ -38,9 +40,14 @@ class MathGame:
         result = Interpreter().visit(tree).value
 
         if result in self.game_equations:
-            self.game_equations[result] = equation
+            if self.game_equations[result] != "":
+                raise InvalidSolutionError(
+                    "The result of the equation is already in the game."
+                )
 
-        return result
+            self.game_equations[result] = equation
+        else:
+            raise ValueError("The result of the equation is not in the game.")
 
     def get_equations(self):
         """Return all the equations in the game in as an formatted string."""
