@@ -11,7 +11,14 @@ def setup_commands(bot):
         """Display the ping in milliseconds."""
 
         latency = bot.latency * 1000
-        await interaction.response.send_message(f"Pong! {latency:.2f}ms")
+
+        embed = Embed(
+            title="Pong!",
+            description=f"MathGameBot responded in {latency:.2f}ms.",
+            color=0x00FF00,
+        )
+
+        await interaction.response.send_message(embed=embed)
 
     @bot.tree.command(
         name="server-count", description="Display the number of servers the bot is in."
@@ -19,13 +26,17 @@ def setup_commands(bot):
     async def server_count(interaction: Interaction):
         """Display the number of servers the bot is in."""
 
-        message = (
-            f"I'm in {len(bot.guilds)} servers"
-            if len(bot.guilds) > 1
-            else f"I'm in {len(bot.guilds)} server"
+        embed = Embed(
+            title="Server Count",
+            description=(
+                f"MathGameBot is in {len(bot.guilds)} servers!"
+                if len(bot.guilds) > 1
+                else f"MathGameBot is in {len(bot.guilds)} server."
+            ),
+            color=0x00FF00,
         )
 
-        await interaction.response.send_message(message)
+        await interaction.response.send_message(embed=embed)
 
     @bot.tree.command(name="new-game", description="Start a new math game.")
     async def new_game(interaction: Interaction):
