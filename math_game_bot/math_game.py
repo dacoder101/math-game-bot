@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from .exceptions import InvalidSolutionError
+from .exceptions import InvalidSolutionError, InvalidArgumentError
 
 from .lexer import Lexer
 from .parser_ import Parser
@@ -48,6 +48,14 @@ class MathGame:
             self.game_equations[result] = equation
         else:
             raise ValueError("The result of the equation is not in the game.")
+
+    def remove_equation(self, result):
+        """Remove an equation from the game."""
+
+        if result in self.game_equations:
+            self.game_equations[result] = ""
+        else:
+            raise InvalidArgumentError("The result of the equation is not in the game.")
 
     def get_equations(self):
         """Return all the equations in the game in as an formatted string."""
