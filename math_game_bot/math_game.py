@@ -2,6 +2,10 @@
 
 from dataclasses import dataclass
 
+from .lexer import Lexer
+from .parser_ import Parser
+from .interpreter import Interpreter
+
 
 @dataclass
 class MathGame:
@@ -21,6 +25,22 @@ class MathGame:
         return f"""Equations:
         
         {self.get_equations()}"""
+
+    def submit_equation(self, equation):
+        """Submit an equation to the game."""
+
+        tokens = Lexer(equation).generate_tokens()
+
+        parser = Parser(tokens)
+
+        tree = parser.parse()
+
+        result = Interpreter().visit(tree).value
+
+        if result in self.game_equations:
+            self.game_equations[result] = equation
+
+        return result
 
     def get_equations(self):
         """Return all the equations in the game in as an formatted string."""
