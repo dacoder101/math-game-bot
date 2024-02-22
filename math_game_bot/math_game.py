@@ -52,10 +52,12 @@ class MathGame:
     def remove_equation(self, result):
         """Remove an equation from the game."""
 
-        if result in self.game_equations:
+        if result in self.game_equations and self.game_equations[result] != "":
             self.game_equations[result] = ""
         else:
-            raise InvalidArgumentError("The result of the equation is not in the game.")
+            raise InvalidArgumentError(
+                "The result of the equation is not in the game, or does not yet have a solution."
+            )
 
     def get_equations(self):
         """Return all the equations in the game in as an formatted string."""
