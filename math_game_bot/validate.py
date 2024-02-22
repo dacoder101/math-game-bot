@@ -143,6 +143,10 @@ class ValidateIntegers:
                 return {ints: 1}
 
         elif ints[0] in "([" and ints[-1] in "])":
+            if not (ints[0] == "[" and ints[-1] == "]") or (
+                ints[0] == "(" and ints[-1] == ")"
+            ):
+                raise InvalidCharactersError("Int dictionary is invalid")
             return self.ints_to_list()
 
         elif ints[0] == "{" and ints[-1] == "}":
@@ -181,6 +185,11 @@ class ValidateOperators:
         operators = self.operators
 
         if operators[0] in "[(" and operators[-1] in "])":
+
+            if not (operators[0] == "[" and operators[-1] == "]") or (
+                operators[0] == "(" and operators[-1] == ")"
+            ):
+                raise InvalidCharactersError("Operators are invalid")
 
             operators = self.str_to_list()
 
