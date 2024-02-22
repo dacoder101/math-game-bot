@@ -1,6 +1,7 @@
 """Functionality to validate user integer dictionary, raising an exception or supplying a verified dictionary."""
 
 from dataclasses import dataclass
+
 from .exceptions import InvalidCharactersError
 
 """
@@ -141,11 +142,62 @@ class ValidateIntegers:
             if self.verify_key(self.get_numerical_form(ints)):
                 return {ints: 1}
 
-        elif ints[0] in "([":
+        elif ints[0] in "([" and ints[-1] in "])":
+            if not (ints[0] == "[" and ints[-1] == "]") or (
+                ints[0] == "(" and ints[-1] == ")"
+            ):
+                raise InvalidCharactersError("Int dictionary is invalid")
             return self.ints_to_list()
 
-        elif ints[0] == "{":
+        elif ints[0] == "{" and ints[-1] == "}":
             return self.ints_to_dict()
 
         else:
             raise InvalidCharactersError("Int dictionary is invalid")
+
+
+@dataclass
+class ValidateOperators:
+    """Methods to validate user's operator list."""
+
+    operators: str
+
+    def __post_init__(self):
+        """Strip `self.operators`."""
+
+        self.operators = self.operators.strip()
+
+    def str_to_list(self):
+        """Convert a string to the list type."""
+
+        operators = self.operators[1:-1]
+        operators = [i.strip() for i in operators.split(",")]
+
+        for i in operators:
+            if len(i) != 1:
+                raise InvalidCharactersError("Operators are invalid")
+
+        return operators
+
+    def validate(self):
+        """Validate; raise an exception or return a verified list."""
+
+        operators = self.operators
+
+        if operators[0] in "[(" and operators[-1] in "])":
+
+            if not (operators[0] == "[" and operators[-1] == "]") or (
+                operators[0] == "(" and operators[-1] == ")"
+            ):
+                raise InvalidCharactersError("Operators are invalid")
+
+            operators = self.str_to_list()
+
+            for i in operators:
+                if i not in "+-*/^%!":
+                    raise InvalidCharactersError("Operators are invalid")
+
+            return operators
+
+        else:
+            raise InvalidCharactersError("Operators are invalid")
