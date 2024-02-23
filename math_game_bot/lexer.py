@@ -5,7 +5,6 @@ from .token import Token
 from .exceptions import InvalidCharactersError
 
 
-
 class Lexer:
     """Lexer class for the math game bot."""
 
@@ -47,7 +46,7 @@ class Lexer:
         """ """Check if a character is a letter.""" """"
         return char.isalpha()"""
 
-    def generate_tokens(self):
+    def generate_tokens(self, disallowed_operations=None):
         """Generate tokens from the equation."""
 
         while self.current_char is not None:
@@ -59,7 +58,7 @@ class Lexer:
                 yield self.generate_number()
 
             elif self.is_operator(self.current_char):
-                yield self.generate_operator()
+                yield self.generate_operator(disallowed_operations)
 
             # elif self.is_alpha(self.current_char):
             #    yield self.generate_keyword()
@@ -96,11 +95,17 @@ class Lexer:
 
         return Token(TokenType.NUM, float(number))
 
-    def generate_operator(self):
+    def generate_operator(self, disallowed_operations=None):
         """Generate an operation token from the equation."""
+
+        if disallowed_operations is None:
+            disallowed_operations = []
 
         operator = self.current_char
         self.advance()
+
+        if operator in disallowed_operations:
+            raise InvalidCharactersError(f"Disallowed operation: {operator}")
 
         return Token(self.operators[operator])
 

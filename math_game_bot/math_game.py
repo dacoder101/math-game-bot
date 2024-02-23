@@ -31,7 +31,7 @@ class MathGame:
     def submit_equation(self, equation):
         """Submit an equation to the game."""
 
-        tokens = Lexer(equation).generate_tokens()
+        tokens = Lexer(equation).generate_tokens(self.disallowed_operations)
 
         parser = Parser(tokens)
 
