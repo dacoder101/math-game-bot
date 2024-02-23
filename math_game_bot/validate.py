@@ -94,7 +94,7 @@ class ValidateIntegers:
             if x in used_ints:
                 continue
 
-            new_ints[x] = split_ints.count(x)
+            new_ints[f"{x}"] = split_ints.count(x)
 
         return new_ints
 
@@ -121,7 +121,7 @@ class ValidateIntegers:
         new_ints = {}
 
         for i in dict_list:
-            new_ints[int(i[0])] = int(i[1])
+            new_ints[f"{i[0]}"] = int(i[1])
 
         if not self.iterate_keys(new_ints.keys()) or not self.iterate_values(
             new_ints.values()
@@ -140,7 +140,7 @@ class ValidateIntegers:
             ints = self.get_numerical_form(ints)
 
             if self.verify_key(self.get_numerical_form(ints)):
-                return {ints: 1}
+                return {f"{ints}": 1}
 
         elif ints[0] in "([" and ints[-1] in "])":
             if not (ints[0] == "[" and ints[-1] == "]") or (
@@ -201,3 +201,36 @@ class ValidateOperators:
 
         else:
             raise InvalidCharactersError("Operators are invalid")
+
+
+@dataclass
+class ValidateNumbers:
+    """Methods to validate the lexer generated NUM tokens."""
+
+    numbers: list
+    ints: dict
+
+    def __post_init__(self):
+        """Convert floats to ints, if possible."""
+
+        self.numbers = [
+            int(i.value) if i.value.is_integer() else i.value for i in self.numbers
+        ]
+
+    def validate(self):
+        """Validate tokens to fit within `ints` guidelines"""
+
+        str_numbers = [str(i) for i in self.numbers]
+        str_str_numbers = "".join(str_numbers)
+
+        for i in str_numbers:
+            for x in i:
+                if x not in self.ints:
+                    raise InvalidCharactersError(f"Number invalid {i, x, self.ints}")
+
+                if str_str_numbers.count(x) > self.ints[x]:
+                    raise InvalidCharactersError(
+                        f"Numbers are invalid, {str_str_numbers.count(x), self.ints[x]}"
+                    )
+
+                print(i.count(x), self.ints[x])
