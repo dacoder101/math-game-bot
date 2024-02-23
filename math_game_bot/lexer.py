@@ -119,6 +119,6 @@ class Lexer:
             self.advance()
 
         if keyword in KEYWORDS:
-            return Token(KEYWORzDS[keyword])
+            return Token(KEYWORDS[keyword])
         else:
             raise InvalidCharactersError(f"Invalid keyword: {keyword}")"""
