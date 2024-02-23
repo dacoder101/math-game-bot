@@ -8,6 +8,8 @@ from .lexer import Lexer
 from .parser_ import Parser
 from .interpreter import Interpreter
 
+from .validate import ValidateNumbers
+
 
 @dataclass
 class MathGame:
@@ -31,11 +33,17 @@ class MathGame:
     def submit_equation(self, equation):
         """Submit an equation to the game."""
 
-        tokens = Lexer(equation).generate_tokens(self.disallowed_operations)
+        tokens = list(Lexer(equation).generate_tokens(self.disallowed_operations))
+
+        numbers = [token for token in tokens if isinstance(token.value, float)]
+
+        ValidateNumbers(numbers, self.ints).validate()
 
         parser = Parser(tokens)
 
         tree = parser.parse()
+
+        print(tree)
 
         result = Interpreter().visit(tree).value
 
