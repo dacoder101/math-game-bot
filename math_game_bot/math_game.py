@@ -39,8 +39,6 @@ class MathGame:
 
         ValidateNumbers(numbers, self.ints).validate()
 
-        parser = Parser(tokens)
-
         tree = parser.parse()
 
         print(tree)
