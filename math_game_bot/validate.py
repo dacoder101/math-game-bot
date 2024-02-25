@@ -1,6 +1,7 @@
 """Functionality to validate user integer dictionary, raising an exception or supplying a verified dictionary."""
 
 from dataclasses import dataclass
+
 from .exceptions import InvalidCharactersError
 
 """
@@ -93,7 +94,7 @@ class ValidateIntegers:
             if x in used_ints:
                 continue
 
-            new_ints[x] = split_ints.count(x)
+            new_ints[f"{x}"] = split_ints.count(x)
 
         return new_ints
 
@@ -120,7 +121,7 @@ class ValidateIntegers:
         new_ints = {}
 
         for i in dict_list:
-            new_ints[int(i[0])] = int(i[1])
+            new_ints[f"{i[0]}"] = int(i[1])
 
         if not self.iterate_keys(new_ints.keys()) or not self.iterate_values(
             new_ints.values()
@@ -139,13 +140,97 @@ class ValidateIntegers:
             ints = self.get_numerical_form(ints)
 
             if self.verify_key(self.get_numerical_form(ints)):
-                return {ints: 1}
+                return {f"{ints}": 1}
 
-        elif ints[0] in "([":
+        elif ints[0] in "([" and ints[-1] in "])":
+            if not (ints[0] == "[" and ints[-1] == "]") or (
+                ints[0] == "(" and ints[-1] == ")"
+            ):
+                raise InvalidCharactersError("Int dictionary is invalid")
             return self.ints_to_list()
 
-        elif ints[0] == "{":
+        elif ints[0] == "{" and ints[-1] == "}":
             return self.ints_to_dict()
 
         else:
             raise InvalidCharactersError("Int dictionary is invalid")
+
+
+@dataclass
+class ValidateOperators:
+    """Methods to validate user's operator list."""
+
+    operators: str
+
+    def __post_init__(self):
+        """Strip `self.operators`."""
+
+        self.operators = self.operators.strip()
+
+    def str_to_list(self):
+        """Convert a string to the list type."""
+
+        operators = self.operators[1:-1]
+        operators = [i.strip() for i in operators.split(",")]
+
+        for i in operators:
+            if len(i) != 1:
+                raise InvalidCharactersError("Operators are invalid")
+
+        return operators
+
+    def validate(self):
+        """Validate; raise an exception or return a verified list."""
+
+        operators = self.operators
+
+        if operators[0] in "[(" and operators[-1] in "])":
+
+            if not (operators[0] == "[" and operators[-1] == "]") or (
+                operators[0] == "(" and operators[-1] == ")"
+            ):
+                raise InvalidCharactersError("Operators are invalid")
+
+            operators = self.str_to_list()
+
+            for i in operators:
+                if i not in "+-*/^%!":
+                    raise InvalidCharactersError("Operators are invalid")
+
+            return operators
+
+        else:
+            raise InvalidCharactersError("Operators are invalid")
+
+
+@dataclass
+class ValidateNumbers:
+    """Methods to validate the lexer generated NUM tokens."""
+
+    numbers: list
+    ints: dict
+
+    def __post_init__(self):
+        """Convert floats to ints, if possible."""
+
+        self.numbers = [
+            int(i.value) if i.value.is_integer() else i.value for i in self.numbers
+        ]
+
+    def validate(self):
+        """Validate tokens to fit within `ints` guidelines"""
+
+        str_numbers = [str(i) for i in self.numbers]
+        str_str_numbers = "".join(str_numbers)
+
+        for i in str_numbers:
+            for x in i:
+                if x not in self.ints:
+                    raise InvalidCharactersError(f"Number invalid {i, x, self.ints}")
+
+                if str_str_numbers.count(x) > self.ints[x]:
+                    raise InvalidCharactersError(
+                        f"Numbers are invalid, {str_str_numbers.count(x), self.ints[x]}"
+                    )
+
+                print(i.count(x), self.ints[x])

@@ -2,6 +2,14 @@
 
 from dataclasses import dataclass
 
+from .exceptions import InvalidSolutionError, InvalidArgumentError
+
+from .lexer import Lexer
+from .parser_ import Parser
+from .interpreter import Interpreter
+
+from .validate import ValidateNumbers
+
 
 @dataclass
 class MathGame:
@@ -21,6 +29,41 @@ class MathGame:
         return f"""Equations:
         
         {self.get_equations()}"""
+
+    def submit_equation(self, equation):
+        """Submit an equation to the game."""
+
+        tokens = list(Lexer(equation).generate_tokens(self.disallowed_operations))
+
+        numbers = [token for token in tokens if isinstance(token.value, float)]
+
+        ValidateNumbers(numbers, self.ints).validate()
+
+        tree = parser.parse()
+
+        print(tree)
+
+        result = Interpreter().visit(tree).value
+
+        if result in self.game_equations:
+            if self.game_equations[result] != "":
+                raise InvalidSolutionError(
+                    "The result of the equation is already in the game."
+                )
+
+            self.game_equations[result] = equation
+        else:
+            raise ValueError("The result of the equation is not in the game.")
+
+    def remove_equation(self, result):
+        """Remove an equation from the game."""
+
+        if result in self.game_equations and self.game_equations[result] != "":
+            self.game_equations[result] = ""
+        else:
+            raise InvalidArgumentError(
+                "The result of the equation is not in the game, or does not yet have a solution."
+            )
 
     def get_equations(self):
         """Return all the equations in the game in as an formatted string."""
