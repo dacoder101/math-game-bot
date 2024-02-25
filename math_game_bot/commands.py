@@ -59,3 +59,11 @@ def setup_commands(bot):
         """Submit an equation for the math game."""
 
         pass
+
+    @bot.tree.command(
+        name="remove-equation", description="Remove an equation from the math game."
+    )
+    async def remove_equation(interaction: Interaction):
+        """Remove an equation from the math game."""
+
+        pass
