@@ -16,7 +16,7 @@ class MathGame:
     """Math game functionality class for the bot."""
 
     ints: dict
-    game_max: int
+    game_max: int = 20
     disallowed_operations: list = None
 
     def __post_init__(self):
@@ -26,9 +26,25 @@ class MathGame:
         self.game_equations = {i: "" for i in range(0, self.game_max + 1)}
 
     def __str__(self):
-        return f"""Equations:
-        
-        {self.get_equations()}"""
+
+        integers_string = ""
+        for k, v in self.ints.items():
+            integers_string += f"{k} ({v}), "
+
+        integers_string = integers_string[:-2]
+
+        operations_string = (
+            ", ".join(self.disallowed_operations)
+            if self.disallowed_operations
+            else "None"
+        )
+
+        return f"""Allowed Integers: {integers_string}
+        Game Max: {self.game_max}
+        Disallowed Operations: {operations_string}
+
+        Solve all of the solutions from 0 to {self.game_max} to win!
+        """
 
     def submit_equation(self, equation):
         """Submit an equation to the game."""
@@ -39,9 +55,7 @@ class MathGame:
 
         ValidateNumbers(numbers, self.ints).validate()
 
-        tree = parser.parse()
-
-        print(tree)
+        tree = Parser(tokens).parse()
 
         result = Interpreter().visit(tree).value
 
