@@ -123,8 +123,8 @@ class ValidateIntegers:
         for i in dict_list:
             new_ints[f"{i[0]}"] = int(i[1])
 
-        if not self.iterate_keys(new_ints.keys()) or not self.iterate_values(
-            new_ints.values()
+        if not self.iterate_keys([int(i) for i in new_ints]) or not self.iterate_values(
+            [int(i) for i in new_ints.values()]
         ):
             raise InvalidCharactersError("Int dictionary is invalid")
 
@@ -232,5 +232,3 @@ class ValidateNumbers:
                     raise InvalidCharactersError(
                         f"Numbers are invalid, {str_str_numbers.count(x), self.ints[x]}"
                     )
-
-                print(i.count(x), self.ints[x])
