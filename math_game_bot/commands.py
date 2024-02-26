@@ -102,10 +102,31 @@ def setup_commands(bot):
     @bot.tree.command(
         name="submit-equation", description="Submit an equation for the math game."
     )
-    async def submit_equation(interaction: Interaction):
+    @app_commands.describe(equation="Enter the equation to submit.")
+    async def submit_equation(interaction: Interaction, equation: str):
         """Submit an equation for the math game."""
 
-        pass
+        if game is not None:
+            try:
+                game.submit_equation(equation)
+
+                await interaction.response.send_message(
+                    embed=generate_embed(
+                        "Submit Equation", "The equation has been submitted."
+                    )
+                )
+
+            except Exception as e:
+                await interaction.response.send_message(
+                    embed=generate_embed("Submit Equation", str(e)),
+                    ephemeral=True,
+                )
+
+        else:
+            await interaction.response.send_message(
+                embed=game_isnt_started(),
+                ephemeral=True,
+            )
 
     @bot.tree.command(
         name="remove-equation", description="Remove an equation from the math game."
