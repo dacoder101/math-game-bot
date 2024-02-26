@@ -69,6 +69,24 @@ def setup_commands(bot):
             embed=generate_embed("New Game", "A new game has been started.")
         )
 
+    @bot.tree.command(name="help", description="Display the help message.")
+    async def help(interaction: Interaction):
+        """Display the help message."""
+
+        await interaction.response.send_message(
+            embed=generate_embed(
+                "Help",
+                "Use the following commands to interact with the bot:\n"
+                "`/ping` - Display the ping in milliseconds.\n"
+                "`/server-count` - Display the number of servers the bot is in.\n"
+                "`/new-game` - Start a new math game.\n"
+                "`/game-info` - Display the game info.\n"
+                "`/equations` - List the equations for the math game.\n"
+                "`/submit-equation` - Submit an equation for the math game.\n"
+                "`/remove-equation` - Remove an equation from the math game.",
+            )
+        )
+
     @bot.tree.command(name="game-info", description="Display the game info.")
     async def game_info(interaction: Interaction):
         """Display the game info."""
