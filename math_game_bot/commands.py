@@ -90,7 +90,7 @@ def setup_commands(bot):
 
         if game is not None:
             await interaction.response.send_message(
-                embed=generate_embed("Equations", str(game))
+                embed=generate_embed("Equations", game.get_equations())
             )
 
         else:
