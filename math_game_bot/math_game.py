@@ -26,9 +26,7 @@ class MathGame:
         self.game_equations = {i: "" for i in range(0, self.game_max + 1)}
 
     def __str__(self):
-        return f"""Equations:
-        
-        {self.get_equations()}"""
+        return self.get_equations()
 
     def submit_equation(self, equation):
         """Submit an equation to the game."""

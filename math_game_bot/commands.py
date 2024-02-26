@@ -93,7 +93,7 @@ def setup_commands(bot):
 
         if game_exists:
             await interaction.response.send_message(
-                embed=generate_embed("Equations", game.get_equations())
+                embed=generate_embed("Equations", str(game))
             )
 
         else:
