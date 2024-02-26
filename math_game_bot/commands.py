@@ -6,7 +6,7 @@ from discord import app_commands
 from .math_game import MathGame
 from .validate import ValidateIntegers, ValidateOperators
 
-game_exists = False
+
 game = None
 
 
@@ -40,19 +40,6 @@ def setup_commands(bot):
             )
         )
 
-    @bot.tree.command(name="game-info", description="Display the game info.")
-    async def game_info(interaction: Interaction):
-        """Display the game info."""
-
-        if game_exists:
-            await interaction.response.send_message(
-                embed=generate_embed("Game Info", str(game))
-            )
-        else:
-            await interaction.response.send_message(
-                embed=game_isnt_started(), ephemeral=True
-            )
-
     @bot.tree.command(name="new-game", description="Start a new math game.")
     @app_commands.describe(
         integers="Enter the the numbers range to use in the game.",
@@ -78,12 +65,22 @@ def setup_commands(bot):
             ),
         )
 
-        global game_exists
-        game_exists = True
-
         await interaction.response.send_message(
             embed=generate_embed("New Game", "A new game has been started.")
         )
+
+    @bot.tree.command(name="game-info", description="Display the game info.")
+    async def game_info(interaction: Interaction):
+        """Display the game info."""
+
+        if game is not None:
+            await interaction.response.send_message(
+                embed=generate_embed("Game Info", str(game))
+            )
+        else:
+            await interaction.response.send_message(
+                embed=game_isnt_started(), ephemeral=True
+            )
 
     @bot.tree.command(
         name="equations", description="List the equations for the math game."
@@ -91,7 +88,7 @@ def setup_commands(bot):
     async def equation_list(interaction: Interaction):
         """List the equations for submitted into the current math game."""
 
-        if game_exists:
+        if game is not None:
             await interaction.response.send_message(
                 embed=generate_embed("Equations", str(game))
             )
@@ -117,7 +114,7 @@ def setup_commands(bot):
     async def remove_equation(interaction: Interaction, result: int):
         """Remove an equation from the math game."""
 
-        if game_exists:
+        if game is not None:
             game.remove_equation(result)
 
             await interaction.response.send_message(
