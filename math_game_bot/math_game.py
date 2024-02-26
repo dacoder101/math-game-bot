@@ -16,7 +16,7 @@ class MathGame:
     """Math game functionality class for the bot."""
 
     ints: dict
-    game_max: int
+    game_max: int = 20
     disallowed_operations: list = None
 
     def __post_init__(self):
@@ -39,9 +39,7 @@ class MathGame:
 
         ValidateNumbers(numbers, self.ints).validate()
 
-        tree = parser.parse()
-
-        print(tree)
+        tree = Parser(tokens).parse()
 
         result = Interpreter().visit(tree).value
 

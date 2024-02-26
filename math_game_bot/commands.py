@@ -1,6 +1,13 @@
 """Command functionality for the bot."""
 
 from discord import Embed, Interaction
+from discord import app_commands
+
+from .math_game import MathGame
+from .validate import ValidateIntegers, ValidateOperators
+
+game_exists = False
+game = None
 
 
 def setup_commands(bot):
@@ -12,13 +19,9 @@ def setup_commands(bot):
 
         latency = bot.latency * 1000
 
-        embed = Embed(
-            title="Pong!",
-            description=f"MathGameBot responded in {latency:.2f}ms.",
-            color=0x00FF00,
+        await interaction.response.send_message(
+            embed=generate_embed("Pong!", f"MathGameBot responded in {latency:.2f}ms.")
         )
-
-        await interaction.response.send_message(embed=embed)
 
     @bot.tree.command(
         name="server-count", description="Display the number of servers the bot is in."
@@ -26,23 +29,61 @@ def setup_commands(bot):
     async def server_count(interaction: Interaction):
         """Display the number of servers the bot is in."""
 
-        embed = Embed(
-            title="Server Count",
-            description=(
-                f"MathGameBot is in {len(bot.guilds)} servers!"
-                if len(bot.guilds) > 1
-                else f"MathGameBot is in {len(bot.guilds)} server."
-            ),
-            color=0x00FF00,
+        await interaction.response.send_message(
+            embed=generate_embed(
+                "Server Count",
+                (
+                    f"MathGameBot is in {len(bot.guilds)} servers!"
+                    if len(bot.guilds) > 1
+                    else f"MathGameBot is in {len(bot.guilds)} server."
+                ),
+            )
         )
 
-        await interaction.response.send_message(embed=embed)
+    @bot.tree.command(name="game-info", description="Display the game info.")
+    async def game_info(interaction: Interaction):
+        """Display the game info."""
+
+        if game_exists:
+            await interaction.response.send_message(
+                embed=generate_embed("Game Info", str(game))
+            )
+        else:
+            await interaction.response.send_message(
+                embed=game_isnt_started(), ephemeral=True
+            )
 
     @bot.tree.command(name="new-game", description="Start a new math game.")
-    async def new_game(interaction: Interaction):
+    @app_commands.describe(
+        integers="Enter the the numbers range to use in the game.",
+        game_max="Enter the maximum number of equations for the game. The default is 20.",
+        disallowed_operations="Enter the disallowed operations for the game. If no operations are listed, all operations are allowed.",
+    )
+    async def new_game(
+        interaction: Interaction,
+        integers: str,
+        game_max: int = 20,
+        disallowed_operations: str = None,
+    ):
         """Start a new math game."""
 
-        pass
+        global game
+        game = MathGame(
+            ValidateIntegers(integers).validate(),
+            game_max,
+            (
+                ValidateOperators(disallowed_operations).validate()
+                if disallowed_operations
+                else None
+            ),
+        )
+
+        global game_exists
+        game_exists = True
+
+        await interaction.response.send_message(
+            embed=generate_embed("New Game", "A new game has been started.")
+        )
 
     @bot.tree.command(
         name="equations", description="List the equations for the math game."
@@ -50,7 +91,16 @@ def setup_commands(bot):
     async def equation_list(interaction: Interaction):
         """List the equations for submitted into the current math game."""
 
-        pass
+        if game_exists:
+            await interaction.response.send_message(
+                embed=generate_embed("Equations", game.get_equations())
+            )
+
+        else:
+            await interaction.response.send_message(
+                embed=game_isnt_started(),
+                ephemeral=True,
+            )
 
     @bot.tree.command(
         name="submit-equation", description="Submit an equation for the math game."
@@ -63,7 +113,40 @@ def setup_commands(bot):
     @bot.tree.command(
         name="remove-equation", description="Remove an equation from the math game."
     )
-    async def remove_equation(interaction: Interaction):
+    @app_commands.describe(result="Enter the result of the equation to remove.")
+    async def remove_equation(interaction: Interaction, result: int):
         """Remove an equation from the math game."""
 
-        pass
+        if game_exists:
+            game.remove_equation(result)
+
+            await interaction.response.send_message(
+                embed=generate_embed(
+                    "Remove Equation", "The equation has been removed."
+                )
+            )
+
+        else:
+            await interaction.response.send_message(
+                embed=game_isnt_started(),
+                ephemeral=True,
+            )
+
+
+def generate_embed(title, content, color=0x00FF00):
+    """Generate an embed message with the given content and color."""
+
+    return Embed(
+        title=title,
+        description=content,
+        color=color,
+    )
+
+
+def game_isnt_started():
+    """Return a message indicating that the game isn't started."""
+
+    return generate_embed(
+        "Game Info",
+        "No game has been started. Use `/new-game` to start a new game.",
+    )
