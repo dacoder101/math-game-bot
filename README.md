@@ -12,7 +12,7 @@ The interpreter was made with help from [CodePulse's *Simple Math Interpreter*](
 
 ## Contributing/Executing
 
-Install all dependencies using `poetry install` after cloning the repository. You will need to configure your IDE with the virtual environment it generates, or it may not detect the installed dependencies, or execute the script with `poetry run` directly.
+Install all dependencies using `poetry install` after cloning the repository. You will need to configure your IDE with the virtual environment it generates, or it may not detect the installed dependencies, or execute the run script with `poetry run python run.py` directly.
 
 If you plan to use `run.py`, the `MATH_BOT_TOKEN` environment variable must be set with your bot's token, which can be created and found on the [Discord Developer Portal](https://discord.com/developers/).
 
