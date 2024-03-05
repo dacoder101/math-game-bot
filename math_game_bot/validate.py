@@ -4,15 +4,6 @@ from dataclasses import dataclass
 
 from .exceptions import InvalidCharactersError
 
-"""
-Contributor Notice:
-
-THE FOLLOWING CODE IS TEMPORARY VALIDATION SOLUTION. 
-IT WILL BE LATER REPLACED WITH A SECOND, LIST/DICTIONARY INTERPRETER DESIGNED SPECIFICALLY FOR VALIDATION.
-
-This is some of the most low-quality code in the entire project. Please do not contribute to it. This is **temporary**.
-"""
-
 
 @dataclass
 class ValidateIntegers:
