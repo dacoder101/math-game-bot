@@ -96,7 +96,9 @@ class ValidateIntegers:
 
         for i in split_ints.split(","):
             if self.colon_count(i) != 1:
-                raise InvalidCharactersError("Int dictionary is invalid")
+                raise InvalidCharactersError(
+                    "Int dictionary includes multiple colons for the same key-value pair."
+                )
 
         split_ints = [i.strip() for i in split_ints.split(",")]
 
@@ -107,7 +109,9 @@ class ValidateIntegers:
 
         for i in dict_list:
             if not self.iterate_int_capability(i):
-                raise InvalidCharactersError("Int dictionary is invalid")
+                raise InvalidCharactersError(
+                    "Int dictionary has values that are not numerical."
+                )
 
         new_ints = {}
 
@@ -117,7 +121,9 @@ class ValidateIntegers:
         if not self.iterate_keys([int(i) for i in new_ints]) or not self.iterate_values(
             [int(i) for i in new_ints.values()]
         ):
-            raise InvalidCharactersError("Int dictionary is invalid")
+            raise InvalidCharactersError(
+                "Keys or values in the dictionary are outside game limits."
+            )
 
         return new_ints
 
@@ -137,14 +143,18 @@ class ValidateIntegers:
             if not (ints[0] == "[" and ints[-1] == "]") or (
                 ints[0] == "(" and ints[-1] == ")"
             ):
-                raise InvalidCharactersError("Int dictionary is invalid")
+                raise InvalidCharactersError(
+                    "Int list has a different opening and closing character."
+                )
             return self.ints_to_list()
 
         elif ints[0] == "{" and ints[-1] == "}":
             return self.ints_to_dict()
 
         else:
-            raise InvalidCharactersError("Int dictionary is invalid")
+            raise InvalidCharactersError(
+                "The program couldn't indentify the type of the input."
+            )
 
 
 @dataclass
@@ -166,7 +176,7 @@ class ValidateOperators:
 
         for i in operators:
             if len(i) != 1:
-                raise InvalidCharactersError("Operators are invalid")
+                raise InvalidCharactersError("Operator list is invalid")
 
         return operators
 
@@ -175,23 +185,32 @@ class ValidateOperators:
 
         operators = self.operators
 
-        if operators[0] in "[(" and operators[-1] in "])":
+        if operators[0] in "+-*/^%!" and len(operators) == 1:
+            return [operators[0]]
+
+        elif operators[0] in "[(" and operators[-1] in "])":
 
             if not (operators[0] == "[" and operators[-1] == "]") or (
                 operators[0] == "(" and operators[-1] == ")"
             ):
-                raise InvalidCharactersError("Operators are invalid")
+                raise InvalidCharactersError(
+                    "Operator list has a different opening and closing character."
+                )
 
             operators = self.str_to_list()
 
             for i in operators:
                 if i not in "+-*/^%!":
-                    raise InvalidCharactersError("Operators are invalid")
+                    raise InvalidCharactersError(
+                        "Operators in the operator list are not valid operators."
+                    )
 
             return operators
 
         else:
-            raise InvalidCharactersError("Operators are invalid")
+            raise InvalidCharactersError(
+                "The program couldn't indentify the type of the input."
+            )
 
 
 @dataclass
@@ -217,9 +236,11 @@ class ValidateNumbers:
         for i in str_numbers:
             for x in i:
                 if x not in self.ints:
-                    raise InvalidCharactersError(f"Number invalid {i, x, self.ints}")
+                    raise InvalidCharactersError(
+                        f'Invalid number. "{x}" is not allowed.'
+                    )
 
                 if str_str_numbers.count(x) > self.ints[x]:
                     raise InvalidCharactersError(
-                        f"Numbers are invalid, {str_str_numbers.count(x), self.ints[x]}"
+                        f'A number was used more times than allowed. "{x}" can only be used {self.ints[x]} times.'
                     )
