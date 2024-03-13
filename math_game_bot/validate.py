@@ -144,7 +144,7 @@ class ValidateIntegers:
                 ints[0] == "(" and ints[-1] == ")"
             ):
                 raise InvalidCharactersError(
-                    "List has a different opening and closing character."
+                    "Int list has a different opening and closing character."
                 )
             return self.ints_to_list()
 
@@ -176,7 +176,7 @@ class ValidateOperators:
 
         for i in operators:
             if len(i) != 1:
-                raise InvalidCharactersError("Operators are invalid")
+                raise InvalidCharactersError("Operator list is invalid")
 
         return operators
 
@@ -194,7 +194,7 @@ class ValidateOperators:
                 operators[0] == "(" and operators[-1] == ")"
             ):
                 raise InvalidCharactersError(
-                    "The list has a different opening and closing character."
+                    "Operator list has a different opening and closing character."
                 )
 
             operators = self.str_to_list()
@@ -202,7 +202,7 @@ class ValidateOperators:
             for i in operators:
                 if i not in "+-*/^%!":
                     raise InvalidCharactersError(
-                        "Intgers in the operator list are not valid operators."
+                        "Operators in the operator list are not valid operators."
                     )
 
             return operators

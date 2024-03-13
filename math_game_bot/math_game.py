@@ -43,8 +43,6 @@ class MathGame:
 
         tree = parser.parse()
 
-        print(tree)
-
         result = Interpreter().visit(tree).value
 
         if result in self.game_equations:
