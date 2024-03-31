@@ -1,6 +1,6 @@
 # Math Game Bot
 
-A discord bot for a simple math game, written using Discord.py and packaged with Poetry.
+A Discord bot for a simple math game, written using Discord.py and packaged with Poetry.
 
 Per [PROJECTS.md](https://github.com/dacoder101/dacoder101/blob/main/PROJECTS.md),
 
