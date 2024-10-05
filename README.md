@@ -16,6 +16,8 @@ Install all dependencies using `poetry install` after cloning the repository. Yo
 
 If you plan to use `run.py`, the `MATH_BOT_TOKEN` environment variable must be set with your bot's token, which can be created and found on the [Discord Developer Portal](https://discord.com/developers/).
 
+**You should assume the bot requires all intents.**
+
 Thank you for contributing!
 
 ## Using the Bot
@@ -31,8 +33,6 @@ Add [this application](https://discord.com/api/oauth2/authorize?client_id=120465
 Clone the repository, and follow the instructions for contributing. After exporting the token and executing `run.py`, the bot should go online.
 
 Exporting an environment variable using the `export` command only lasts for the duration of the terminal session it was used, meaning the token could be lost. You may want to consider creating a `.env` file to store the token.
-
-**You should assume the bot requires all intents.**
 
 ## Maintenance
 
