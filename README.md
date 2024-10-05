@@ -32,6 +32,8 @@ Clone the repository, and follow the instructions for contributing. After export
 
 Exporting an environment variable using the `export` command only lasts for the duration of the terminal session it was used, meaning the token could be lost. You may want to consider creating a `.env` file to store the token.
 
+**You should assume the bot requires all intents.**
+
 ## Maintenance
 
 I likely will stop committing new functionality to the bot after it is working, meaning I will not work on any issues or bug fixes.
